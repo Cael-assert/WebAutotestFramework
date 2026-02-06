@@ -1,0 +1,6 @@
+- user: "standard_user"
+  pwd: "secret_sauce"
+  desc: "标准用户登录测试"
+- user: "locked_out_user"
+  pwd: "secret_sauce"
+  desc: "被锁定用户测试"

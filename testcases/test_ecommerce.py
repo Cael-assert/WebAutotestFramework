@@ -5,6 +5,7 @@ import pytest
 from selenium import webdriver
 
 from common.yaml_util import read_yaml
+from config.settings import BASE_URL
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 
@@ -16,7 +17,7 @@ data_list = read_yaml(yaml_path)
 @pytest.mark.parametrize("case", data_list)
 def test_saucedemo_workflow(case,get_driver):
     driver = get_driver
-    driver.get("https://www.saucedemo.com/")
+    driver.get(BASE_URL)
     # 核心链路阶段1：登录
     login_page = LoginPage(driver)
     login_page.login_action(case["user"], case["pwd"])

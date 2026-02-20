@@ -9,7 +9,7 @@ class BasePage:
         log.info(f"正在查找元素:{loc}")
         try:
             wait = WebDriverWait(self.driver, timeout)
-            el = wait.until(EC.presence_of_element_located(loc))
+            el = wait.until(EC.element_to_be_clickable(loc))
             return el
         except Exception as e:
             log.error(f"查找元素超时失败:{loc}")

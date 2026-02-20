@@ -10,8 +10,15 @@ logger = get_logger("Conftest")
 # 第一次新增：Fixture驱动管理
 @pytest.fixture()
 def get_driver(request):
+    options = webdriver.ChromeOptions()
+    # 关闭密码保存提示，关闭密码泄露警告
+    prefs = {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False
+    }
+    options.add_experimental_option("prefs", prefs)
     # yield之前是“前置操作”
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     # 第一次新增：核心纽带把driver绑定在当前的测试用例节点上
     # 第一次新增：后面的Hook钩子就能在用例失败时，从节点上拿到driver去截图

@@ -1,0 +1,129 @@
+# data/login_data.yaml
+
+# 1. 异常登录校验场景 (验证各类错误提示，对应 TC002-TC009, TC018-TC020)
+login_abnormal:
+  - case_id: "TC002"
+    title: "锁定用户正确账号密码登录失败"
+    username: "locked_out_user"
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Sorry, this user has been locked out."
+
+  - case_id: "TC003"
+    title: "空用户名 + 正确密码登录校验"
+    username: ""
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Username is required"
+
+  - case_id: "TC004"
+    title: "正确用户名 + 空密码登录校验"
+    username: "standard_user"
+    password: ""
+    expected_error: "Epic sadface: Password is required"
+
+  - case_id: "TC005"
+    title: "用户名 + 密码均为空登录校验"
+    username: ""
+    password: ""
+    expected_error: "Epic sadface: Username is required"
+
+  - case_id: "TC006"
+    title: "错误用户名 + 正确密码登录校验"
+    username: "test_wrong_user"
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC007"
+    title: "正确用户名 + 错误密码登录校验"
+    username: "standard_user"
+    password: "123456789"
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC008"
+    title: "用户名前后带空格 + 正确密码登录校验"
+    username: " standard_user "
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC009"
+    title: "正确用户名 + 密码前后带空格登录校验"
+    username: "standard_user"
+    password: " secret_sauce "
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC018"
+    title: "超长用户名输入登录兼容性校验"
+    username: "standard_user_standard_user_standard_user_standard_user_standard_user_standard_user_standard_user_abc" # 模拟超长字符
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC019"
+    title: "特殊字符用户名输入登录兼容性校验"
+    username: "!@#$%^&*()"
+    password: "secret_sauce"
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+  - case_id: "TC020"
+    title: "超长密码输入登录兼容性校验"
+    username: "standard_user"
+    password: "secret_sauce_secret_sauce_secret_sauce_secret_sauce_secret_sauce_secret_sauce_secret_sauce_secret_sauce" # 模拟超长字符
+    expected_error: "Epic sadface: Username and password do not match any user in this service"
+
+
+# 2. 官方提供的特殊用户登录场景 (验证特殊账号的登录行为，对应 TC010-TC013)
+login_special_users:
+  - case_id: "TC010"
+    title: "性能卡顿用户正确账号密码登录校验"
+    username: "performance_glitch_user"
+    password: "secret_sauce"
+    expected_result: "success_with_delay"
+
+  - case_id: "TC011"
+    title: "问题用户正确账号密码登录校验"
+    username: "problem_user"
+    password: "secret_sauce"
+    expected_result: "success_with_broken_ui"
+
+  - case_id: "TC012"
+    title: "错误用户正确账号密码登录校验"
+    username: "error_user"
+    password: "secret_sauce"
+    expected_result: "success_with_errors"
+
+  - case_id: "TC013"
+    title: "视觉用户正确账号密码登录校验"
+    username: "visual_user"
+    password: "secret_sauce"
+    expected_result: "success_with_visual_bugs"
+
+
+# 3. 登录页边界操作与细节校验 (需要单独编写操作步骤逻辑的用例，对应 TC014-TC017)
+login_edge_cases:
+  - case_id: "TC014"
+    title: "登录页刷新后输入内容清空校验"
+    username: "standard_user"
+    password: "secret_sauce"
+    action: "refresh_page"
+    expected_username_box: ""
+    expected_password_box: ""
+
+  - case_id: "TC015"
+    title: "登录页回车键触发登录功能校验"
+    username: "standard_user"
+    password: "secret_sauce"
+    action: "press_enter_key"
+    expected_result: "login_success"
+
+  - case_id: "TC016"
+    title: "已登录用户回退到登录页权限校验"
+    username: "standard_user"
+    password: "secret_sauce"
+    action: "browser_back_and_forward"
+    expected_result: "maintain_logged_in_status"
+
+  - case_id: "TC017"
+    title: "登录失败后密码框清空校验"
+    username: "standard_user"
+    password: "wrong_password"
+    action: "click_login"
+    expected_username_box: "standard_user"
+    expected_password_box: ""

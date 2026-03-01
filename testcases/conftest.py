@@ -17,7 +17,6 @@ def get_driver(request):
         "profile.password_manager_enabled": False
     }
     options.add_experimental_option("prefs", prefs)
-    # yield之前是“前置操作”
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     # 第一次新增：核心纽带把driver绑定在当前的测试用例节点上

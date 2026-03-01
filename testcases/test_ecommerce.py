@@ -2,7 +2,6 @@ import os
 import time
 
 import pytest
-from selenium import webdriver
 
 from common.yaml_util import read_yaml
 from config.settings import BASE_URL

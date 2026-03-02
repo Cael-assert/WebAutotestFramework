@@ -46,3 +46,12 @@ class LoginPage(BasePage):
     def get_password_value(self):
         el = self.wait_and_find_element(self.pwd_input)
         return el.get_attribute("value") or ""
+
+    def refresh_clear_username_pwd(self,username,password):
+        el1 = self.wait_and_find_element(self.user_input)
+        el1.clear()
+        el1.send_keys(username)
+        el2 = self.wait_and_find_element(self.pwd_input)
+        el2.clear()
+        el2.send_keys(password)
+

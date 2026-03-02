@@ -54,14 +54,8 @@ def test_login_edge_cases(case, get_driver):
 
     if action == "refresh_page":
         # TC014：输入后刷新，校验输入框被清空
-        login_page.login_action(case["username"], case["password"])
+        login_page.refresh_clear_username_pwd(case["username"], case["password"])
         driver.refresh()
-        # 刷新后需要重新获取页面元素
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
-        from selenium.webdriver.common.by import By
-        wait = WebDriverWait(driver, 10)
-        wait.until(EC.presence_of_element_located((By.ID, "user-name")))
         login_page = LoginPage(driver)
         assert login_page.get_username_value() == case.get("expected_username_box", "")
         assert login_page.get_password_value() == case.get("expected_password_box", "")
